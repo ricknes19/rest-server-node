@@ -1,4 +1,5 @@
 const Usuario = require('../models/usuario');
+const Role = require('../models/role');
 
 const verificaCorreo = async(correo = '') => {
 
@@ -9,6 +10,16 @@ const verificaCorreo = async(correo = '') => {
     }
 }
 
+const verificaRol = async(rol = '') => {
+    
+    const existeRol = await Role.findOne({ rol });
+    
+    if(!existeRol){
+        throw new Error(`El rol ${rol} no es válido`);
+    }
+}
+
 module.exports = {
-    verificaCorreo
+    verificaCorreo,
+    verificaRol
 }
