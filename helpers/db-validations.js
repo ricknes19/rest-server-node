@@ -19,7 +19,17 @@ const verificaRol = async(rol = '') => {
     }
 }
 
+const verificaUsuarioPorId = async(id) => {
+
+    const existeUsuario = await Usuario.findById(id);
+
+    if(!existeUsuario){
+        throw new Error(`El ID ${id} no existe`);
+    }
+}
+
 module.exports = {
     verificaCorreo,
-    verificaRol
+    verificaRol,
+    verificaUsuarioPorId
 }

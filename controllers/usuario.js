@@ -25,11 +25,19 @@ const usuariosPost = async(req = request, res = response) => {
 
 }
 
-const usuariosPut = (req = request, res = response) => {
+const usuariosPut = async(req = request, res = response) => {
 
-    res.json({
-        msg: 'PUT usuario'
-    });
+    const { id } = req.params;
+    const { correo, clave, ...nuevoUsuario } = req.body;
+
+    if(clave){
+        const salt = bcryptjs.genSaltSync();
+        nuevoUsuario.clave = bcryptjs.hashSync(clave, salt);
+    }
+
+    const usuario = await Usuario.findByIdAndUpdate(id, nuevoUsuario);
+
+    res.json({ usuario });
 
 }
 
