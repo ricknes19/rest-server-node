@@ -51,11 +51,13 @@ const usuariosPut = async(req = request, res = response) => {
 
 }
 
-const usuariosDelete = (req = request, res = response) => {
+const usuariosDelete = async(req = request, res = response) => {
 
-    res.json({
-        msg: 'DELETE usuario'
-    });
+    const { id } = req.params;
+
+    const usuario = await Usuario.findByIdAndUpdate(id, { estado: false });
+
+    res.json(usuario);
 
 }
 
